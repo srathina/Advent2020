@@ -9,11 +9,13 @@ char *passport[] = {"eyr:2024 pid:662406624 hcl:#cfa07d byr:1947 iyr:2015 ecl:am
 void d4part1(void);
 void d4part2(void);
 
-void main(void)
+int main(void)
 {
 
     d4part1();
     d4part2();
+
+    return(1);
 }
 
 void d4part1(void)
