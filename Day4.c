@@ -15,7 +15,7 @@ int main(void)
     d4part1();
     d4part2();
 
-    return(1);
+    return (1);
 }
 
 void d4part1(void)
@@ -56,12 +56,13 @@ void d4part1(void)
 }
 void d4part2(void)
 {
-    int i = 0,
+    int i = 0, k = 0, m = 0, char_count = 0,
         j = 0, valid_count = 0, total = 0, loop_size;
 
     int byr, iyr, eyr, hgt;
 
-    char *result, substr[50], unitstr[50];
+    char *result;
+    char substr[50], unitstr[10];
 
     loop_size = sizeof(passport) / sizeof(passport[0]);
 
@@ -80,7 +81,7 @@ void d4part2(void)
                 {
                 case 0:
                     strncpy(substr, result + 4, 4);
-                    substr[8] = '\0';
+                    substr[4] = '\0';
                     byr = atoi(substr);
                     if (byr >= 1920 && byr <= 2002)
                     {
@@ -89,7 +90,7 @@ void d4part2(void)
                     break;
                 case 1:
                     strncpy(substr, result + 4, 4);
-                    substr[8] = '\0';
+                    substr[4] = '\0';
                     iyr = atoi(substr);
                     if (iyr >= 2010 && iyr <= 2020)
                     {
@@ -98,21 +99,106 @@ void d4part2(void)
                     break;
                 case 2:
                     strncpy(substr, result + 4, 4);
-                    substr[8] = '\0';
+                    substr[4] = '\0';
                     eyr = atoi(substr);
                     if (eyr >= 2020 && eyr <= 2030)
                     {
                         valid_count++;
                     }
                     break;
+                case 3:
+                    m = 0;
+                    hgt = 0;
+                    strncpy(substr, result + 4, 5);
+                    substr[5] = '\0';
+                    // printf("%s\n", substr);
+                    if ((strstr(substr, "cm") != NULL) ||
+                        (strstr(substr, "in") != NULL))
+                    {
+                        for (int x = 0; substr[x] != '\0'; x++)
+                        {
+                            if (substr[x] >= '0' && substr[x] <= '9')
+                            {
+                                hgt = (hgt * 10) + (substr[x] - 48);
+                            }
+                            else
+                            {
+                                unitstr[m] = substr[x];
+                                m++;
+                            }
+                        }
+                        unitstr[m - 1] = '\0';
+                        if (((strcmp(unitstr, "cm") == 0) &&
+                             hgt >= 150 && hgt <= 193) ||
+                            ((strcmp(unitstr, "in") == 0) &&
+                             hgt >= 59 && hgt <= 76))
+                        {
+                            valid_count++;
+                        }
+                    }
+                    break;
+                case 4:
+                    char_count = 0;
+                    strncpy(substr, result + 4, 7);
+                    substr[7] = '\0';
+                    // printf("%s\n", substr);
+                    if (substr[0] == '#')
+                    {
+                        for (int x = 1; x <= 6; x++)
+                        {
+                            if ((substr[x] >= '0' && substr[x] <= '9') ||
+                                (substr[x] >= 'a' && substr[x] <= 'f'))
+                            {
+                                char_count++;
+                            }
+                        }
 
+                        if (char_count == 6)
+                        {
+                            valid_count++;
+                        }
+                    }
+                    break;
+                case 5:
+                    strncpy(substr, result + 4, 3);
+                    substr[3] = '\0';
+                    // printf("%s\n", substr);
+                    if ((strcmp(substr, "amb") == 0) ||
+                        (strcmp(substr, "blu") == 0) ||
+                        (strcmp(substr, "brn") == 0) ||
+                        (strcmp(substr, "gry") == 0) ||
+                        (strcmp(substr, "grn") == 0) ||
+                        (strcmp(substr, "hzl") == 0) ||
+                        (strcmp(substr, "oth") == 0))
+                    {
+                        valid_count++;
+                    }
+                    break;
+                case 6:
+                    char_count = 0;
+                    strncpy(substr, result + 4, 15);
+                    substr[15] = '\0';
+                    // printf("%s\n", substr);
+                    for (int x = 0; substr[x] != ' '; x++)
+                    {
+                        if ((substr[x] >= '0' && substr[x] <= '9'))
+                        {
+                            char_count++;
+                        }
+                    }
+
+                    if (char_count == 9)
+                    {
+                        valid_count++;
+                    }
+                    break;
                 default:
                     break;
                 }
             }
         }
 
-        if (valid_count >= 2)
+        if (valid_count >= 7)
         {
             total++;
         }
