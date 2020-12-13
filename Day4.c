@@ -79,33 +79,40 @@ void d4part2(void)
 
                 switch (j)
                 {
+
                 case 0:
                     strncpy(substr, result + 4, 4);
                     substr[4] = '\0';
                     byr = atoi(substr);
+                    // printf("%d\n", byr);
                     if (byr >= 1920 && byr <= 2002)
                     {
                         valid_count++;
                     }
                     break;
+
                 case 1:
                     strncpy(substr, result + 4, 4);
                     substr[4] = '\0';
                     iyr = atoi(substr);
+                    // printf("%d\n", iyr);
                     if (iyr >= 2010 && iyr <= 2020)
                     {
                         valid_count++;
                     }
                     break;
+
                 case 2:
                     strncpy(substr, result + 4, 4);
                     substr[4] = '\0';
                     eyr = atoi(substr);
+                    // printf("%d\n", eyr);
                     if (eyr >= 2020 && eyr <= 2030)
                     {
                         valid_count++;
                     }
                     break;
+
                 case 3:
                     m = 0;
                     hgt = 0;
@@ -121,30 +128,44 @@ void d4part2(void)
                             {
                                 hgt = (hgt * 10) + (substr[x] - 48);
                             }
-                            else
+                        }
+                        for (int y = 0; substr[y] != '\0'; y++)
+                        {
+                            if ((substr[y] == 'c') ||
+                                (substr[y] == 'm') ||
+                                (substr[y] == 'i') ||
+                                (substr[y] == 'n'))
                             {
-                                unitstr[m] = substr[x];
+                                unitstr[m] = substr[y];
                                 m++;
                             }
                         }
-                        unitstr[m - 1] = '\0';
-                        if (((strcmp(unitstr, "cm") == 0) &&
-                             hgt >= 150 && hgt <= 193) ||
-                            ((strcmp(unitstr, "in") == 0) &&
-                             hgt >= 59 && hgt <= 76))
-                        {
-                            valid_count++;
-                        }
+                        unitstr[m] = '\0';
+                    }
+
+                    if (((strcmp(unitstr, "cm") == 0) &&
+                         hgt >= 150 && hgt <= 193) ||
+                        ((strcmp(unitstr, "in") == 0) &&
+                         hgt >= 59 && hgt <= 76))
+                    {
+                        valid_count++;
                     }
                     break;
+
                 case 4:
                     char_count = 0;
-                    strncpy(substr, result + 4, 7);
-                    substr[7] = '\0';
+                    // strncpy(substr, result + 4, 7);
+                    // substr[7] = '\0';
+                    int a;
+                    for (a = 0; result[a + 4] != ' '; a++)
+                    {
+                        substr[a] = result[a + 4];
+                    }
+                    substr[a] = '\0';
                     // printf("%s\n", substr);
                     if (substr[0] == '#')
                     {
-                        for (int x = 1; x <= 6; x++)
+                        for (int x = 1; substr[x] != '\0'; x++)
                         {
                             if ((substr[x] >= '0' && substr[x] <= '9') ||
                                 (substr[x] >= 'a' && substr[x] <= 'f'))
@@ -159,9 +180,17 @@ void d4part2(void)
                         }
                     }
                     break;
+
                 case 5:
-                    strncpy(substr, result + 4, 3);
-                    substr[3] = '\0';
+                    char_count = 0;
+                    // strncpy(substr, result + 4, 3);
+                    // substr[3] = '\0';
+                    int c;
+                    for (c = 0; result[c + 4] != ' '; c++)
+                    {
+                        substr[c] = result[c + 4];
+                    }
+                    substr[c] = '\0';
                     // printf("%s\n", substr);
                     if ((strcmp(substr, "amb") == 0) ||
                         (strcmp(substr, "blu") == 0) ||
@@ -174,14 +203,22 @@ void d4part2(void)
                         valid_count++;
                     }
                     break;
+
                 case 6:
                     char_count = 0;
-                    strncpy(substr, result + 4, 15);
-                    substr[15] = '\0';
-                    // printf("%s\n", substr);
-                    for (int x = 0; substr[x] != ' '; x++)
+                    // strncpy(substr, result + 4, 15);
+                    // substr[15] = '\0';
+                    int p;
+                    for (p = 0; result[p + 4] != ' '; p++)
                     {
-                        if ((substr[x] >= '0' && substr[x] <= '9'))
+                        substr[p] = result[p + 4];
+                    }
+                    substr[p] = '\0';
+                    // printf("%s\n", substr);
+
+                    for (int z = 0; substr[z] != '\0'; z++)
+                    {
+                        if ((substr[z] >= '0' && substr[z] <= '9'))
                         {
                             char_count++;
                         }
@@ -192,6 +229,7 @@ void d4part2(void)
                         valid_count++;
                     }
                     break;
+
                 default:
                     break;
                 }
