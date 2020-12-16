@@ -4,11 +4,13 @@
 void dnpart1(void);
 void dnpart2(void);
 
-void main(void)
+int main(void)
 {
 
     dnpart1();
     dnpart2();
+
+    return (1);
 }
 
 void dnpart1(void)
