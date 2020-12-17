@@ -1248,8 +1248,8 @@ void d8part2(void);
 int main(void)
 {
 
-    // d8part1();
-    d8part2();
+    d8part1();
+    // d8part2();
 
     return (1);
 }
@@ -1263,7 +1263,7 @@ void d8part2(void)
 
     memcpy(copy_instr, instr, 619);
 
-    // while (index < 619)              
+    // while (index < 619)
     {
 
         if (strcmp(instr[index], "acc ") != 0)
